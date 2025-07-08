@@ -1,7 +1,32 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  college_api:
+  web:
     build: .
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: asmita
+      POSTGRES_PASSWORD: asmita123
+      POSTGRES_DB: college_db
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5050:80"

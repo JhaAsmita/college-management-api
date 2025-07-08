@@ -1,11 +1,10 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String
+from .database import Base
 
-class Student(BaseModel):
-    id: int
-    name: str
-    age: int
-    department: str
+class Student(Base):
+    __tablename__ = "students"
 
-class User(BaseModel):
-    username: str
-    password: str
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    age = Column(Integer)
+    department = Column(String)
